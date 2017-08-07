@@ -23,7 +23,7 @@ def generate_model_config(name,  n_filters, nonlinearity='relu'):
 
 
 
-def build_model(model_spec, compile_loss=True):
+def build_model(model_spec):
     """ Build model according to the spec
 
     Args:
@@ -44,8 +44,5 @@ def build_model(model_spec, compile_loss=True):
         model.add(Dense(n_units, activation=activation))
 
     model.add(Dense(10, activation='softmax'))
-
-    if compile_loss:
-        model.compile(loss='categorical_crossentropy', optimizer='adam')
 
     return model
