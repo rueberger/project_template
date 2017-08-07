@@ -8,6 +8,8 @@ from mnist_cnn.model import build_model
 from mnist_cnn.batch_gen import pipeline_batch_gen
 
 
+from keras.optimizers import Adam
+
 # create the experiment instance
 experiment = Experiment('mnist_demo')
 
@@ -41,7 +43,7 @@ def config():
         'mode': 'val',
         'batch_size': 32
     }
-    'train_spec': {
+    train_spec = {
         'epoch_size': 100,
         'n_epochs': 100,
         'lr': 0.0001
@@ -49,8 +51,10 @@ def config():
 
 # sacred automagically captures arguments in this method, and passes matching objects from the config
 @experiment.automain
-def main(model_spec, train_batch_spec, val_batch_spec, epoch_size,
+def main(train_spec, model_spec, train_batch_spec, val_batch_spec, epoch_size,
           n_epochs=100, lr=0.001):
+    """ This runs the experiment
+    """
     model = build_model(train_spec['model_spec'])
     # compile model loss
     optimizer = Adam(lr=train_spec['lr'])
