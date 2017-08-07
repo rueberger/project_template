@@ -40,7 +40,7 @@ def pipeline_train(train_spec):
     model = build_model(train_spec['model_spec'])
     # compile model loss
     optimizer = Adam(lr=train_spec['train_spec']['lr'])
-    model.compile(loss='categorical_cross_entropy', optimizer=optimizer)
+    model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 
     train_batch_gen = pipeline_batch_gen(train_spec['train_batch_spec'])
     val_batch_gen = pipeline_batch_gen(train_spec['val_batch_spec'])
