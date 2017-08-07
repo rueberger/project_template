@@ -31,22 +31,22 @@ def config():
     """ Sacred magically captures the local variables and turns them into a config dict
     """
     model_spec = {
-        'name': None,
-        'n_filters': [64, 128, 128],
-        'nonlinearity': 'relu'
+        name: None,
+        n_filters: [64, 128, 128],
+        nonlinearity: 'relu'
     }
     train_batch_spec = {
-        'mode': 'train',
-        'batch_size': 32
+        mode: 'train',
+        batch_size: 32
     }
     val_batch_spec = {
-        'mode': 'val',
-        'batch_size': 32
+        mode: 'val',
+        batch_size: 32
     }
     train_spec = {
-        'epoch_size': 100,
-        'n_epochs': 100,
-        'lr': 0.0001
+        epoch_size: 100,
+        n_epochs: 100,
+        lr: 0.0001
     }
 
 # sacred automagically captures arguments in this method, and passes matching objects from the config
