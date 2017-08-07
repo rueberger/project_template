@@ -48,3 +48,8 @@ def pipeline_train(train_spec):
 
     model.fit_generator(train_batch_gen, train_spec['epoch_size'], n_epochs=train_spec['n_epochs'],
                         validation_data=val_batch_gen, validation_steps=128)
+
+def pipeline_train_hook(args):
+    # plumb args into old config methods, get them into train_spec format
+    train_spec = _plumbing(args)
+    pipeline_train(train_spec)
