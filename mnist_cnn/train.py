@@ -47,7 +47,7 @@ def pipeline_train(train_spec):
 
 
     model.fit_generator(train_batch_gen, train_spec['train_spec']['epoch_size'],
-                        n_epochs=train_spec['train_spec']['n_epochs'],
+                        epochs=train_spec['train_spec']['n_epochs'],
                         validation_data=val_batch_gen, validation_steps=128)
 
 def pipeline_train_hook(name, n_filters, nonlinearity='relu', batch_size=32,
