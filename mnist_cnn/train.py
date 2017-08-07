@@ -1,8 +1,8 @@
 """ This module contains the pipeline train method
 """
 
-from mnist_cnn.model import build_model
-from mnist_cnn.batch_gen import pipeline_batch_gen
+from mnist_cnn.model import build_model, generate_model_config
+from mnist_cnn.batch_gen import pipeline_batch_gen, generate_batch_spec
 
 from keras.optimizers import Adam
 
@@ -49,7 +49,13 @@ def pipeline_train(train_spec):
     model.fit_generator(train_batch_gen, train_spec['epoch_size'], n_epochs=train_spec['n_epochs'],
                         validation_data=val_batch_gen, validation_steps=128)
 
-def pipeline_train_hook(args):
+def pipeline_train_hook(name, n_filters, nonlinearity='relu', batch_size=32,
+                         epoch_size=256, n_epochs=100, lr=0.001):
     # plumb args into old config methods, get them into train_spec format
-    train_spec = _plumbing(args)
+    model_spec = generate_model_config(name, n_filters, nonlinearity)
+    train_batch_spec = generate_batch_spec('train',  batch_size)
+    val_batch_spec = generate_batch_spec('val',  batch_size)
+
+    train_spec = generate_train_config(model_spec, train_batch_spec, val_batch_spec,
+                                       epoch_size=epoch_size, n_epochs=n_epochs, lr=lr)
     pipeline_train(train_spec)
